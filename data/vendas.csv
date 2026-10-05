@@ -1,0 +1,11 @@
+id,data,cliente,produto,categoria,quantidade,preco_unitario,custo_unitario,pagamento
+1,2026-09-01,Cliente 001,Notebook,Eletrônicos,1,3500,2800,Pix
+2,2026-09-02,Cliente 002,Mouse,Periféricos,2,120,70,Cartão
+3,2026-09-03,Cliente 003,Teclado,Periféricos,1,250,150,Pix
+4,2026-09-04,Cliente 004,Monitor,Eletrônicos,1,1200,850,Cartão
+5,2026-09-05,Cliente 005,Headset,Periféricos,2,180,100,Pix
+6,2026-09-06,Cliente 006,Notebook,Eletrônicos,1,3500,2800,Cartão
+7,2026-09-07,Cliente 007,Mouse,Periféricos,3,120,70,Pix
+8,2026-09-08,Cliente 008,Monitor,Eletrônicos,2,1200,850,Cartão
+9,2026-09-09,Cliente 009,Teclado,Periféricos,2,250,150,Pix
+10,2026-09-10,Cliente 010,Notebook,Eletrônicos,1,3500,2800,Cartão

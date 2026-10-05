@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>LZ Analytics - Vendas</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="app">
+
+        <aside class="sidebar">
+
+            <div class="logo">
+                <div class="logo-icon">LZ</div>
+
+                <div class="logo-text">
+                    <strong>LZ Analytics</strong>
+                    <span>Data Intelligence</span>
+                </div>
+            </div>
+
+            <div class="menu-title">
+                MENU PRINCIPAL
+            </div>
+
+            <nav class="menu">
+
+                <a href="index.html" class="menu-item">
+                    <span>📊</span>
+                    Dashboard
+                </a>
+
+                <a href="vendas.html" class="menu-item active">
+                    <span>💰</span>
+                    Vendas
+                </a>
+
+                <a href="#" class="menu-item">
+                    <span>📈</span>
+                    Relatórios
+                </a>
+
+                <a href="#" class="menu-item">
+                    <span>⚙️</span>
+                    Configurações
+                </a>
+
+            </nav>
+
+            <div class="sidebar-footer">
+                <span class="status-dot"></span>
+                API Online
+            </div>
+
+        </aside>
+
+        <main class="main">
+
+            <header class="topbar">
+
+                <div>
+                    <h1>Vendas</h1>
+
+                    <p>
+                        Visualização detalhada das vendas
+                    </p>
+                </div>
+
+            </header>
+
+            <section class="content-grid">
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+                            <h2>Lista de vendas</h2>
+
+                            <p>
+                                Todas as vendas registradas no sistema
+                            </p>
+                        </div>
+
+                    </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Produto</th>
+                                <th>Quantidade</th>
+                                <th>Preço Unitário</th>
+                                <th>Faturamento</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabela-vendas">
+                        </tbody>
+                    </table>
+                </div>
+
+                </div>
+
+            </section>
+
+        </main>fun
+
+    </div>
+<script src="vendas.js"></script>
+</body>
+
+</html>
