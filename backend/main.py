@@ -1,8 +1,15 @@
+from datetime import date
+from typing import Optional
+
 import pandas as pd
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
-from backend.analise import calcular_indicadores, carregar_vendas
+from backend.analise import (
+    calcular_indicadores,
+    carregar_vendas,
+    filtrar_por_periodo,
+)
 
 app = FastAPI(title="LZ Analytics")
 
@@ -28,6 +35,15 @@ def obter_vendas():
         )
 
 
+def obter_vendas_filtradas(inicio: Optional[date], fim: Optional[date]):
+    if inicio and fim and inicio > fim:
+        raise HTTPException(
+            status_code=400,
+            detail="A data inicial não pode ser maior que a data final.",
+        )
+    return filtrar_por_periodo(obter_vendas(), inicio, fim)
+
+
 @app.get("/")
 def inicio():
     return {"message": "Bem-vindo à API de Análise de Vendas!"}
@@ -39,8 +55,11 @@ def saude():
 
 
 @app.get("/vendas/indicadores")
-def indicadores_vendas():
-    return calcular_indicadores(obter_vendas())
+def indicadores_vendas(
+    inicio: Optional[date] = None,
+    fim: Optional[date] = None,
+):
+    return calcular_indicadores(obter_vendas_filtradas(inicio, fim))
 
 
 @app.get("/vendas")
@@ -49,8 +68,11 @@ def listar_vendas():
 
 
 @app.get("/vendas/faturamento-por-dia")
-def faturamento_por_dia():
-    vendas = obter_vendas()
+def faturamento_por_dia(
+    inicio: Optional[date] = None,
+    fim: Optional[date] = None,
+):
+    vendas = obter_vendas_filtradas(inicio, fim)
 
     if vendas.empty:
         return []

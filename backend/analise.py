@@ -11,6 +11,24 @@ def carregar_vendas():
     return pd.read_csv(ARQUIVO_VENDAS)
 
 
+def filtrar_por_periodo(df, inicio=None, fim=None):
+    """Mantém só as vendas entre 'inicio' e 'fim' (ambos inclusos).
+    Se inicio ou fim for None, aquele lado fica sem limite."""
+    if df.empty:
+        return df
+
+    datas = pd.to_datetime(df["data"])
+    mascara = pd.Series(True, index=df.index)
+
+    if inicio is not None:
+        mascara &= datas >= pd.Timestamp(inicio)
+
+    if fim is not None:
+        mascara &= datas <= pd.Timestamp(fim)
+
+    return df[mascara].copy()
+
+
 def calcular_indicadores(df):
     # Sem dados: retorna tudo zerado (evita divisão por zero)
     if df.empty:

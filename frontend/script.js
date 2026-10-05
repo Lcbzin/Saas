@@ -3,13 +3,48 @@
 
 let graficoVendas = null;
 
+// Lê os campos de data e monta o trecho "?inicio=...&fim=..." da URL
+function montarParametros() {
+    const parametros = new URLSearchParams();
+
+    const inicio = document.getElementById("data-inicio").value;
+    const fim = document.getElementById("data-fim").value;
+
+    if (inicio) parametros.set("inicio", inicio);
+    if (fim) parametros.set("fim", fim);
+
+    const texto = parametros.toString();
+    return texto ? `?${texto}` : "";
+}
+
+function aplicarFiltro() {
+    const inicio = document.getElementById("data-inicio").value;
+    const fim = document.getElementById("data-fim").value;
+    const aviso = document.getElementById("filtro-aviso");
+
+    if (inicio && fim && inicio > fim) {
+        aviso.textContent = "A data inicial não pode ser maior que a final.";
+        return;
+    }
+
+    aviso.textContent = "";
+    iniciarDashboard();
+}
+
+function limparFiltro() {
+    document.getElementById("data-inicio").value = "";
+    document.getElementById("data-fim").value = "";
+    document.getElementById("filtro-aviso").textContent = "";
+    iniciarDashboard();
+}
+
 function definirTexto(id, texto) {
     document.getElementById(id).innerText = texto;
 }
 
 async function carregarIndicadores() {
     try {
-        const resposta = await fetch(`${API_URL}/vendas/indicadores`);
+        const resposta = await fetch(`${API_URL}/vendas/indicadores${montarParametros()}`);
         if (!resposta.ok) throw new Error("Erro ao consultar os indicadores.");
 
         const dados = await resposta.json();
@@ -50,7 +85,7 @@ async function carregarGraficoVendas() {
     let container = document.getElementById("graficoVendas").parentElement;
 
     try {
-        const resposta = await fetch(`${API_URL}/vendas/faturamento-por-dia`);
+        const resposta = await fetch(`${API_URL}/vendas/faturamento-por-dia${montarParametros()}`);
         if (!resposta.ok) throw new Error("Erro ao consultar faturamento diário.");
 
         const dados = await resposta.json();

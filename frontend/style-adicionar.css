@@ -1,0 +1,6 @@
+
+/* ADICIONE ESTE BLOCO NO FINAL DO SEU style.css */
+
+.status-dot.offline {
+    background: #ef4444;
+}
