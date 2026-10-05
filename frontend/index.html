@@ -4,12 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>LZ Analytics</title>
-
     <link rel="stylesheet" href="style.css">
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 </head>
 
 <body>
@@ -21,55 +18,32 @@
 
             <div class="logo">
                 <div class="logo-icon">LZ</div>
-
                 <div class="logo-text">
                     <strong>LZ Analytics</strong>
                     <span>Data Intelligence</span>
                 </div>
             </div>
 
-            <div class="menu-title">
-                MENU PRINCIPAL
-            </div>
+            <div class="menu-title">MENU PRINCIPAL</div>
 
             <nav class="menu">
-
-                <a href="#" class="menu-item active">
-                    <span>📊</span>
-                    Dashboard
-                </a>
-
-                <a href="vendas.html" class="menu-item">
-                    <span>💰</span>
-                    Vendas
-                </a>
-
-                <a href="#" class="menu-item">
-                    <span>📈</span>
-                    Relatórios
-                </a>
-
-                <a href="#" class="menu-item">
-                    <span>⚙️</span>
-                    Configurações
-                </a>
-
+                <a href="index.html" class="menu-item active"><span>📊</span> Dashboard</a>
+                <a href="vendas.html" class="menu-item"><span>💰</span> Vendas</a>
+                <a href="#" class="menu-item"><span>📈</span> Relatórios</a>
+                <a href="#" class="menu-item"><span>⚙️</span> Configurações</a>
             </nav>
 
             <div class="sidebar-footer">
-                <span class="status-dot"></span>
-                API Online
+                <span id="status-dot" class="status-dot offline"></span>
+                <span id="status-texto">Verificando API...</span>
             </div>
 
         </aside>
 
-
         <!-- CONTEÚDO PRINCIPAL -->
         <main class="main">
 
-            <!-- TOPO -->
             <header class="topbar">
-
                 <div>
                     <h1>Dashboard</h1>
                     <p>Visão geral dos seus indicadores de vendas</p>
@@ -78,172 +52,78 @@
                 <button class="refresh-button" onclick="iniciarDashboard()">
                     🔄 Atualizar
                 </button>
-
             </header>
-
 
             <!-- INDICADORES -->
             <section class="kpi-grid">
 
-                <div class="c">
-
+                <div class="kpi-card">
                     <div class="kpi-header">
-                        <span class="kpi-title">
-                            Faturamento
-                        </span>
-
-                        <span class="kpi-icon">
-                            💰
-                        </span>
+                        <span class="kpi-title">Faturamento</span>
+                        <span class="kpi-icon">💰</span>
                     </div>
-
-                    <div id="faturamento" class="kpi-value">
-                        Carregando...
-                    </div>
-
-                    <p class="kpi-description">
-                        Faturamento total
-                    </p>
-
+                    <div id="faturamento" class="kpi-value">Carregando...</div>
+                    <p class="kpi-description">Faturamento total</p>
                 </div>
-
 
                 <div class="kpi-card">
-
                     <div class="kpi-header">
-                        <span class="kpi-title">
-                            Lucro
-                        </span>
-
-                        <span class="kpi-icon">
-                            📈
-                        </span>
+                        <span class="kpi-title">Lucro</span>
+                        <span class="kpi-icon">📈</span>
                     </div>
-
-                    <div id="lucro" class="kpi-value">
-                        Carregando...
-                    </div>
-
-                    <p class="kpi-description">
-                        Lucro total
-                    </p>
-
+                    <div id="lucro" class="kpi-value">Carregando...</div>
+                    <p class="kpi-description">Lucro total</p>
                 </div>
-
 
                 <div class="kpi-card">
-
                     <div class="kpi-header">
-                        <span class="kpi-title">
-                            Vendas
-                        </span>
-
-                        <span class="kpi-icon">
-                            🛒
-                        </span>
+                        <span class="kpi-title">Vendas</span>
+                        <span class="kpi-icon">🛒</span>
                     </div>
-
-                    <div id="vendas" class="kpi-value">
-                        Carregando...
-                    </div>
-
-                    <p class="kpi-description">
-                        Quantidade de vendas
-                    </p>
-
+                    <div id="vendas" class="kpi-value">Carregando...</div>
+                    <p class="kpi-description">Quantidade de vendas</p>
                 </div>
-
 
                 <div class="kpi-card">
-
                     <div class="kpi-header">
-                        <span class="kpi-title">
-                            Produtos
-                        </span>
-
-                        <span class="kpi-icon">
-                            📦
-                        </span>
+                        <span class="kpi-title">Produtos</span>
+                        <span class="kpi-icon">📦</span>
                     </div>
-
-                    <div id="produtos" class="kpi-value">
-                        Carregando...
-                    </div>
-
-                    <p class="kpi-description">
-                        Produtos vendidos
-                    </p>
-
+                    <div id="produtos" class="kpi-value">Carregando...</div>
+                    <p class="kpi-description">Produtos vendidos</p>
                 </div>
-
 
                 <div class="kpi-card">
-
                     <div class="kpi-header">
-                        <span class="kpi-title">
-                            Ticket Médio
-                        </span>
-
-                        <span class="kpi-icon">
-                            🎯
-                        </span>
+                        <span class="kpi-title">Ticket Médio</span>
+                        <span class="kpi-icon">🎯</span>
                     </div>
-
-                    <div id="ticket" class="kpi-value">
-                        Carregando...
-                    </div>
-
-                    <p class="kpi-description">
-                        Valor médio por venda
-                    </p>
-
+                    <div id="ticket" class="kpi-value">Carregando...</div>
+                    <p class="kpi-description">Valor médio por venda</p>
                 </div>
-
 
                 <div class="kpi-card highlight">
-
                     <div class="kpi-header">
-                        <span class="kpi-title">
-                            Produto mais vendido
-                        </span>
-
-                        <span class="kpi-icon">
-                            🏆
-                        </span>
+                        <span class="kpi-title">Produto mais vendido</span>
+                        <span class="kpi-icon">🏆</span>
                     </div>
-
-                    <div id="produto-mais-vendido" class="kpi-value product-name">
-                        Carregando...
-                    </div>
-
-                    <p id="quantidade-produto-mais-vendido" class="kpi-description">
-                        Carregando...
-                    </p>
-
+                    <div id="produto-mais-vendido" class="kpi-value product-name">Carregando...</div>
+                    <p id="quantidade-produto-mais-vendido" class="kpi-description">Carregando...</p>
                 </div>
 
             </section>
 
-
-            <!-- ÁREA DO GRÁFICO -->
+            <!-- GRÁFICO -->
             <section class="content-grid">
 
                 <div class="panel">
 
                     <div class="panel-header">
-
                         <div>
                             <h2>Faturamento por dia</h2>
-
-                            <p>
-                                Evolução do faturamento diário
-                            </p>
+                            <p>Evolução do faturamento diário</p>
                         </div>
-
-                        <span class="panel-badge">
-                            Últimos dados
-                        </span>
-
+                        <span class="panel-badge">Últimos dados</span>
                     </div>
 
                     <div class="chart-container">
@@ -254,8 +134,6 @@
 
             </section>
 
-
-            <!-- RODAPÉ -->
             <footer class="footer">
                 <span>LZ Analytics</span>
                 <span>Dashboard de Análise de Vendas</span>
@@ -265,9 +143,8 @@
 
     </div>
 
-
+    <script src="config.js"></script>
     <script src="script.js"></script>
-
 </body>
 
 </html>

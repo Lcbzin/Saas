@@ -1,92 +1,71 @@
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
 import pandas as pd
+from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 
-from backend.analise import carregar_vendas, calcular_indicadores
-
+from backend.analise import calcular_indicadores, carregar_vendas
 
 app = FastAPI(title="LZ Analytics")
 
-
-# ==========================================
-# CONFIGURAÇÃO DO CORS
-# ==========================================
-
+# CORS: em produção, troque pelas origens reais do seu site
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"]
+    allow_origins=[
+        "http://localhost:5500",
+        "http://127.0.0.1:5500",
+    ],
+    allow_methods=["GET"],
+    allow_headers=["*"],
 )
 
 
-# ==========================================
-# ROTA PRINCIPAL
-# ==========================================
+def obter_vendas():
+    try:
+        return carregar_vendas()
+    except FileNotFoundError:
+        raise HTTPException(
+            status_code=503,
+            detail="Arquivo de dados (data/vendas.csv) não encontrado.",
+        )
+
 
 @app.get("/")
 def inicio():
-    return {
-        "message": "Bem-vindo à API de Análise de Vendas!"
-    }
+    return {"message": "Bem-vindo à API de Análise de Vendas!"}
 
 
-# ==========================================
-# INDICADORES
-# ==========================================
+@app.get("/saude")
+def saude():
+    return {"status": "ok"}
+
 
 @app.get("/vendas/indicadores")
 def indicadores_vendas():
-
-    vendas = carregar_vendas()
-
-    indicadores = calcular_indicadores(vendas)
-
-    return indicadores
-
-
-# ==========================================
-# VENDAS
-# ==========================================
+    return calcular_indicadores(obter_vendas())
 
 
 @app.get("/vendas")
 def listar_vendas():
+    return obter_vendas().to_dict(orient="records")
 
-    vendas = carregar_vendas()
-
-    return vendas.to_dict(orient="records")
-
-
-# ==========================================
-# FATURAMENTO POR DIA
-# ==========================================
 
 @app.get("/vendas/faturamento-por-dia")
 def faturamento_por_dia():
+    vendas = obter_vendas()
 
-    vendas = carregar_vendas()
+    if vendas.empty:
+        return []
 
     vendas["data"] = pd.to_datetime(vendas["data"])
+    vendas["faturamento"] = vendas["quantidade"] * vendas["preco_unitario"]
 
-    vendas["faturamento"] = (
-        vendas["quantidade"] *
-        vendas["preco_unitario"]
-    )
-
-    faturamento_por_dia = (
-        vendas
-        .groupby(vendas["data"].dt.date)["faturamento"]
+    resultado = (
+        vendas.groupby(vendas["data"].dt.date)["faturamento"]
         .sum()
         .reset_index()
     )
 
-    faturamento_por_dia["data"] = (
-        faturamento_por_dia["data"]
-        .apply(lambda data: data.strftime("%d/%m/%Y"))
+    resultado["data"] = resultado["data"].apply(
+        lambda d: d.strftime("%d/%m/%Y")
     )
 
-    return faturamento_por_dia.to_dict(
-        orient="records"
-    )
+    return resultado.to_dict(orient="records")
