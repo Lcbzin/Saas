@@ -42,6 +42,24 @@ function definirTexto(id, texto) {
     document.getElementById(id).innerText = texto;
 }
 
+function atualizarSelo() {
+    const inicio = document.getElementById("data-inicio").value;
+    const fim = document.getElementById("data-fim").value;
+    
+    let texto = "Todo o período";
+    if (inicio && fim) {
+        texto = `De ${formatarData(inicio)} até ${formatarData(fim)}`;
+    } else if (inicio) {
+        texto = `A partir de ${formatarData(inicio)}`;
+    } else if (fim) {
+        texto = `Até ${formatarData(fim)}`;
+    }
+
+    document.getElementById("periodo-selo").textContent = texto;
+
+
+}
+
 async function carregarIndicadores() {
     try {
         const resposta = await fetch(`${API_URL}/vendas/indicadores${montarParametros()}`);
@@ -164,6 +182,7 @@ async function carregarGraficoVendas() {
 }
 
 async function iniciarDashboard() {
+    atualizarSelo();
     await Promise.all([
         verificarApi(),
         carregarIndicadores(),

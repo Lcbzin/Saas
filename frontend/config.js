@@ -8,6 +8,12 @@ function formatarMoeda(valor) {
     });
 }
 
+function formatarData(data) {
+    const partes = String(data).split("-");
+    if (partes.length !== 3) return data;
+    return `${partes[2]}/${partes[1]}/${partes[0]}`;
+}
+
 // Testa a API e atualiza o indicador do menu lateral
 async function verificarApi() {
     const ponto = document.getElementById("status-dot");

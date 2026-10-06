@@ -1,8 +1,4 @@
-function formatarData(data) {
-    const partes = String(data).split("-");
-    if (partes.length !== 3) return data;
-    return `${partes[2]}/${partes[1]}/${partes[0]}`;
-}
+
 
 function criarCelula(texto) {
     const celula = document.createElement("td");

@@ -54,7 +54,7 @@
                 </button>
             </header>
 
-            <!-- FILTRO POR PERÍODO -->
+          
             <section class="filtros">
                 <div class="filtro-campo">
                     <label for="data-inicio">Data inicial</label>
@@ -66,12 +66,12 @@
                     <input type="date" id="data-fim">
                 </div>
 
-                <button class="refresh-button" onclick="aplicarFiltro()">
-                    Filtrar
+                <button class="botao-primario" onclick="aplicarFiltro()">
+                    🔍 Filtrar
                 </button>
 
                 <button class="botao-secundario" onclick="limparFiltro()">
-                    Limpar
+                    ✕ Limpar
                 </button>
 
                 <span id="filtro-aviso" class="filtro-aviso"></span>
@@ -147,7 +147,7 @@
                             <h2>Faturamento por dia</h2>
                             <p>Evolução do faturamento diário</p>
                         </div>
-                        <span class="panel-badge">Últimos dados</span>
+                        <span id ="periodo-selo" class="panel-badge">Todo o período</span>
                     </div>
 
                     <div class="chart-container">
