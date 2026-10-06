@@ -183,11 +183,22 @@ async function carregarGraficoVendas() {
 
 async function iniciarDashboard() {
     atualizarSelo();
-    await Promise.all([
-        verificarApi(),
-        carregarIndicadores(),
-        carregarGraficoVendas()
-    ]);
+
+    const botoes = document.querySelectorAll(
+        ".refresh-button, .botao-primario, .botao-secundario"
+    );
+
+    botoes.forEach(botao => botao.disabled = true);
+
+    try {
+        await Promise.all([
+            verificarApi(),
+            carregarIndicadores(),
+            carregarGraficoVendas()
+        ]);
+    } finally {
+        botoes.forEach(botao => botao.disabled = false);
+    }
 }
 
 iniciarDashboard();

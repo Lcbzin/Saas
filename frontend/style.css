@@ -708,3 +708,11 @@ tbody tr:last-child td {
     font-size: 13px;
     color: #dc2626;
 }
+
+button:disabled,
+button:disabled:hover {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
